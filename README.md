@@ -12,4 +12,4 @@ The application is used for admin to track the state of vending machines, all di
 ## Technologies
 
 * ASP.NET Core 3.1
-* Blazor WebAssembly
+* Blazor 
