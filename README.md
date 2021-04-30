@@ -26,3 +26,4 @@ The application is used for admin to track the state of vending machines, all di
 
 **Marin Mišćević**
 + [https://github.com/marinMiscevic](https://github.com/marinMiscevic)
+
