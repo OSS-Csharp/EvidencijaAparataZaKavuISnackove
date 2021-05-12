@@ -7,6 +7,7 @@ Vending machine microservice.
 ## Technologies
 
 * ASP.NET Core 3.1
+* Docker
 
 ## Author
 
