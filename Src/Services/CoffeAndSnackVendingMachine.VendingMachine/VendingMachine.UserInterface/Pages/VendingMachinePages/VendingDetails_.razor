@@ -1,0 +1,86 @@
+﻿@page "/machineDetails/{_machineId}"
+@inherits VendingDetailsBase
+
+<h3>Vending Machine Details</h3>
+<table>
+    <tr>
+        <td>ID: </td>
+        <td>@_detailedMachine._id</td>
+    </tr>
+    <tr>
+        <td>Validity: </td>
+        @if (@_detailedMachine._machineValidity == true)
+        {
+            <td>In Order</td>
+        }
+        else
+        {
+            <td>Out of Order</td>
+        }
+
+    </tr>
+    <tr></tr>
+    @if (_detailedMachine._vendingMachineItemEntities != null)
+    {
+        @foreach (var many in _detailedMachine._vendingMachineItemEntities)
+        {
+            <tr>_</tr>
+            <tr>
+                <td>Amount of an Item: </td>
+                <td></td>
+                <td>@many._amountOfAnItem</td>
+                <td></td>
+                <td>
+                    <a href=@($"machineUpdate/{many._vendingMachineId}/{many._itemId}") class="btn btn-primary m-1">Edit Item Amount</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Item ID: </td>
+                <td></td>
+                <td>@many._itemId</td>
+            </tr>
+            <tr>
+                <td>Item Name:</td>
+                <td></td>
+                <td>@many._itemName</td>
+            </tr>
+            <tr>
+                <td>Item Price:</td>
+                <td></td>
+                <td>@many._itemPrice kn</td>
+            </tr>
+        }
+    }
+</table>
+
+<EditForm Model="_detailedMachine" OnSubmit="OnSetValidity">
+    <div class="form-group row">
+        <div class="col-sm-10">
+            Machine validity:
+            <InputCheckbox @bind-Value="_detailedMachine._machineValidity" id="_detailedMachine._machineValidity" />
+            <ValidationMessage For="@(() => _detailedMachine._machineValidity)" />
+            <button type="submit" class="btn btn-primary">Sumbit Validity</button>
+        </div>
+    </div>
+</EditForm>
+<br />
+<div>
+    Add new item:<br />
+    _______________
+</div>
+<table>
+    @foreach (var item in _items)
+    {
+    <tr>
+        <td>@item._itemName</td>
+        <td>
+            <a href=@($"addItemToMachine/{_detailedMachine._id}/{item._id}") class="btn btn-primary m-1">Add</a>
+        </td>
+    </tr>
+    }
+    <tr>
+        <td>
+            <a href=@("/") class="btn btn-primary m-1">Back</a>
+        </td>
+    </tr>
+</table>

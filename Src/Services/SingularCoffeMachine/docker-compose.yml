@@ -1,0 +1,20 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  singularcoffemachine:
+    image: singularcoffemachine
+    build:
+      context: .
+      dockerfile: SingularCoffeMachine/Dockerfile
+    ports:
+      - "0.0.0.0:5004:5005"
+      networks:
+        - my-network
+      environment:
+        - API_URL=Api:5005
+    
+  networks:
+    my-network:
+      external: true      

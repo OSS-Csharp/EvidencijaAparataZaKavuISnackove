@@ -1,0 +1,74 @@
+﻿@page "/items"
+@inherits ItemPage
+
+
+<h1>Item List</h1>
+<table>
+    <tr>
+        <td>Main Page </td>
+        <td>
+            <a href=@("../")> here</a>
+        </td>
+        <td>.</td>
+    </tr>
+</table>
+
+@if (items != null)
+{
+    <div>
+        <table>
+            @foreach (var item in items)
+            {
+                <tr>
+                    <td>@item._itemName</td>
+                    <td></td>
+                    <td>
+                        <a href=@($"/items/{item._id}") class="btn btn-primary m-1">Details</a>
+                    </td>
+                    @*<td></td>
+                    <td>
+                        <a href=@($"/itemsUpdate/{item._id}") class="btn btn-primary m-1">Edit</a>
+                    </td>*@
+                    <td></td>
+                    <td>
+                        <a href=@($"/itemsDelete/{item._id}") class="btn btn-primary m-1">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <p><em>no data found</em></p>
+}
+
+<br />
+<br />
+
+<EditForm Model="@item" OnValidSubmit="OnCreateNewItem">
+    <h3>Create New Item</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="_itemName" class="col-sm-2 col-form-label">
+            Item Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="_itemName" class="form-control" placeholder="Item Name"
+                       @bind-Value="item._itemName" />
+            <ValidationMessage For="@(() => item._itemName)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="_price" class="col-sm-2 col-form-label">
+            Price
+        </label>
+        <div class="col-sm-10">
+            <input id="lastName" class="form-control" placeholder="Price"
+                   @bind-value="item._price" />
+            <ValidationMessage For="@(() => item._price)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>

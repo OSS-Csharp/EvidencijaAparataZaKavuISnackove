@@ -1,0 +1,29 @@
+﻿@page "/itemsUpdate/{_id}/"
+@inherits ItemDetailsBase
+
+<EditForm Model="@item" OnValidSubmit="OnUpdateItem">
+    <h3>Update Item</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="_itemName" class="col-sm-2 col-form-label">
+            Item Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="_itemName" class="form-control" placeholder="@item._itemName"
+                       @bind-Value="item._itemName" />
+            <ValidationMessage For="@(() => item._itemName)" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="_price" class="col-sm-2 col-form-label">
+            Price
+        </label>
+        <div class="col-sm-10">
+            <input id="_price" class="form-control" placeholder="@item._price"
+                   @bind-value="item._price" />
+            <ValidationMessage For="@(() => item._price)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>

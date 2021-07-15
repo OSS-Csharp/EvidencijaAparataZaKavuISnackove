@@ -1,0 +1,17 @@
+﻿@page "/itemsDelete/{_id}"
+@inherits ItemDetailsBase
+
+<div>Are you sure you want to delete this item?</div>
+<div>An item won't be deleted if it's contained by any vedning machine.</div>
+<table>
+    <tr>
+        <td>
+            <button class="btn btn-danger" type="button" @onclick="OnDeleteItem">
+                Delete
+            </button>
+        </td>
+        <td>
+            <a href=@("/items") class="btn btn-primary m-1">Back</a>
+        </td>
+    </tr>
+</table>

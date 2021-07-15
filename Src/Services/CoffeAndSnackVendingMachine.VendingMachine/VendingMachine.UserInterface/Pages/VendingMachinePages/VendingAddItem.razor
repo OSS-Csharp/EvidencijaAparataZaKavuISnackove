@@ -1,0 +1,16 @@
+﻿@page "/addItemToMachine/{_machineId}/{_itemId}" 
+@inherits VendingDetailsBase
+
+<div>Add item @_itemId to machine @_machineId: </div>
+<table>
+    <tr>
+        <td>
+            <button class="btn btn-danger" type="button" @onclick="OnAddItemToMachine">
+                Confirm Add
+            </button>
+        </td>
+        <td>
+            <a href=@($"/machineDetails/{_machineId}") class="btn btn-primary m-1">Back</a>
+        </td>
+    </tr>
+</table>

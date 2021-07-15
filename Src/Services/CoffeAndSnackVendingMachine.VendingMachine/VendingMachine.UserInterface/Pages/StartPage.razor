@@ -1,0 +1,66 @@
+﻿@page "/"
+@inherits VendingPage
+
+<h1>Vending Machine List</h1>
+
+@if (machines != null)
+{
+    <table>
+        <tr>
+            <th>ID: </th>
+            <th></th>
+            <th>Validity: </th>
+        </tr>
+        @foreach (var machine in machines)
+        {
+            <tr>
+                <td>@machine._id</td>
+                <td></td>
+                @if (machine._machineValidity == true)
+                {
+                    <td>In Order</td>
+                }
+                else
+                {
+                    <td>Out of Order</td>
+                }
+                <td>
+                    <a href=@($"machineDetails/{machine._id}") class="btn btn-primary m-1">Details</a>
+                </td>
+                <td></td>
+                <td>
+                    <a href=@($"machineDelete/{machine._id}") class="btn btn-primary m-1">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+<table>
+    <tr>
+        <td>See all Items </td>
+        <td>
+            <a href=@("../items")> here</a>
+        </td>
+        <td>.</td>
+    </tr>
+</table>
+
+
+<br />
+<br />
+<EditForm Model="@machine" OnValidSubmit="OnCreateNewMachine">
+    <h3>Create New Machine</h3>
+    <hr />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="_machineValidity" class="col-sm-2 col-form-label">
+            Machine Validity: 
+        </label>
+        <div class="col-sm-10">
+            <InputCheckbox id="_machineValidity" class="form-control" placeholder="Machine Validity"
+                       @bind-Value="@machine._machineValidity" />
+            <ValidationMessage For="@(() => machine._machineValidity)" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>

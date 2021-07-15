@@ -1,0 +1,17 @@
+﻿@page "/machineDelete/{_machineId}"
+@inherits VendingDetailsBase
+
+<div>Are you sure you want to delete this machine?</div>
+<div>Machine won't be deleted if it contains any items.</div>
+<table>
+    <tr>
+        <td>
+            <button class="btn btn-danger" type="button" @onclick="OnDeleteMachine">
+                Delete
+            </button>
+        </td>
+        <td>
+            <a href=@("/") class="btn btn-primary m-1">Back</a>
+        </td>
+    </tr>
+</table>

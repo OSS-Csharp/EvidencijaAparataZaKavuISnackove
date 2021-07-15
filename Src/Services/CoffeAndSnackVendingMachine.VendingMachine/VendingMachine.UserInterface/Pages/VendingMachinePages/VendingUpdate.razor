@@ -1,0 +1,33 @@
+﻿@page "/machineUpdate/{_machineId}/{_itemId}"
+@inherits VendingDetailsBase
+
+<EditForm Model="_detailedMachine" OnSubmit="OnSetItemAmount">
+    <div>
+        <label for="_machineId">
+            Machine ID: @_machineId
+        </label>
+    </div>
+    <div>
+        <label for="_itemId">
+            Item ID: @_itemId
+        </label>
+    </div>
+    <div>
+        @if (_detailedMachine._vendingMachineItemEntities != null)
+        {
+            @foreach (var a in _detailedMachine._vendingMachineItemEntities)
+            {
+                if (a._itemId == int.Parse(_itemId))
+                {
+                    @*<div>This is the one</div>*@
+                    <InputNumber @bind-Value="a._amountOfAnItem" id="a._amountOfAnItem"></InputNumber>
+                    <ValidationMessage For="@(() => a._amountOfAnItem)" />
+                    <button type="submit" class="btn btn-primary m-1">Save Changes</button>
+                }
+            }
+
+        }
+    </div>
+</EditForm>
+
+<a href=@("/") class="btn btn-primary m-1">Back</a>

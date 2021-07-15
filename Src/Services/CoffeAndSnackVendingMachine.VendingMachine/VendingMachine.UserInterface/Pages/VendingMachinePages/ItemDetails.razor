@@ -1,0 +1,45 @@
+﻿@page "/items/{_id}"
+@inherits ItemDetailsBase
+
+<h3>Item Details</h3>
+<h4>@_detaildItem._itemName</h4>
+<table>
+    <tr>
+        <td>ID: </td>
+        <td>@_detaildItem._id</td>
+    </tr>
+    <tr>
+        <td>Price: </td>
+        <td>@_detaildItem._price kn</td>
+    </tr>
+    <tr></tr>
+    @if (_detaildItem._detailedMachineItems != null)
+    {
+        @foreach (var many in _detaildItem._detailedMachineItems)
+        {
+            <tr>_</tr>
+            <tr>
+                <td>Amount of an Item: </td>
+                <td></td>
+                <td>@many._amountOfAnItem</td>
+            </tr>
+            <tr>
+                <td>Vending Machine ID: </td>
+                <td></td>
+                <td>@many._vendingMachineId</td>
+            </tr>
+            <tr>
+                <td>Vending Machine Validity:</td>
+                <td></td>
+                @if (many._vendingMachineValidity == true)
+                {
+                    <td>In Order</td>
+                }
+                else
+                {
+                    <td>Out of Order</td>
+                }
+            </tr>
+        }
+    }
+</table>
