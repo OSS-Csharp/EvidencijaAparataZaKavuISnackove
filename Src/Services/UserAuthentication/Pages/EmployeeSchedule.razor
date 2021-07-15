@@ -1,0 +1,56 @@
+﻿@page "/schedules"
+@using Microsoft.Extensions.DependencyInjection
+@using UserAuthentication.Repository
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+@inherits OwningComponentBase
+@if (UserName != null) {
+    <h1>
+        Aparat ID: @baseRepository.GetUserSchedule(@UserName).AparatId
+    </h1>
+    <button @onclick="SendFix">
+        FIX
+    </button>
+} else {
+    <h1>You're not logged in!</h1>
+}
+
+@code {
+
+    public string UserName;
+    private IBaseRepository baseRepository;
+
+    protected override void OnInitialized()
+    {
+        UserName = httpContextAccessor.HttpContext.User.Identity.Name;
+        baseRepository = ScopedServices.GetRequiredService<IBaseRepository>();
+    }
+
+    public async void SendFix()
+    {
+        var url = "http://localhost:5001/test";
+
+        var request = WebRequest.Create(url);
+        request.Method = "POST";
+
+        var user = "Data transfered succesfully";
+        var json = System.Text.Json.JsonSerializer.Serialize(user);
+        byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+        request.ContentType = "application/x-www-form-urlencoded";
+        request.ContentLength = byteArray.Length;
+
+        using var reqStream = request.GetRequestStream();
+        reqStream.Write(byteArray, 0, byteArray.Length);
+
+        using var response = request.GetResponse();
+        Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+        await Console.Out.WriteLineAsync("Output: " + (((HttpWebResponse)response).Headers).ToString());
+
+        using var respStream = response.GetResponseStream();
+
+        using var reader = new StreamReader(respStream);
+        string data = reader.ReadToEnd();
+        Console.WriteLine(data);
+    }
+}

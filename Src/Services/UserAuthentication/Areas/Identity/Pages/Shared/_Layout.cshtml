@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.ViewEngines
+@inject IWebHostEnvironment Environment
+@inject ICompositeViewEngine Engine
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UserAuthentication</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/theme.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <AuthorizeView>
+                        <Authorized>
+                            <li class="nav-item">
+                                <a class="nav-link" href="schedules">MySchedule</a>
+                            </li>
+                        </Authorized>
+                    </AuthorizeView>
+                    <li class="nav-item">
+                        <a class="nav-link" href="employees">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Identity/Account/Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Identity/Account/Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="Identity/Account/LogOut">
+                            <button type="submit" class="nav-link btn btn-link">Log out</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="footer border-top text-muted">
+        <div class="container">
+            &copy; 2021 - UserAuthentication - <a asp-area="" asp-page="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/Identity/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Identity/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

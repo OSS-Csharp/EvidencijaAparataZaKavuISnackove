@@ -1,0 +1,42 @@
+﻿@page "/employees"
+@using Microsoft.Extensions.DependencyInjection
+@using UserAuthentication.Repository
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+@inherits OwningComponentBase
+
+@if (UserName != null)
+{
+    <h3>Users</h3>
+    <p>
+        @foreach (var many in baseRepository.GetAllUsers())
+        {
+            <table>
+                <tr>_</tr>
+                <tr>
+                    <td>UserName: </td>
+                    <td></td>
+                    <td>@many.UserName</td>
+                </tr>
+                <tr>
+                    <td>Availability: </td>
+                    <td></td>
+                    <td>@many.Availability</td>
+                </tr>
+            </table>
+        }
+    </p>
+} else {
+<h1>You're not logged in!</h1>
+}
+@code {
+
+    public string UserName = "";
+    private IBaseRepository baseRepository;
+
+    protected override void OnInitialized()
+    {
+        UserName = httpContextAccessor.HttpContext.User.Identity.Name;
+        baseRepository = ScopedServices.GetRequiredService<IBaseRepository>();
+    }
+}

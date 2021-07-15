@@ -1,0 +1,15 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+<h3><a href="Identity/Account/Manage">'Hallo, @UserName!</a></h3>
+
+@code {
+
+    public string UserName;
+
+    protected override void OnInitialized()
+    {
+
+        UserName = httpContextAccessor.HttpContext.User.Identity.Name;
+    }
+} 
